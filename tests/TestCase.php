@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Cndrsdrmn\Passwords\PasswordsServiceProvider;
+use Illuminate\Auth\Passwords\PasswordResetServiceProvider;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
 
 abstract class TestCase extends TestbenchTestCase
@@ -18,6 +20,6 @@ abstract class TestCase extends TestbenchTestCase
      */
     protected function getPackageProviders($app): array
     {
-        return [];
+        return [PasswordResetServiceProvider::class, PasswordsServiceProvider::class];
     }
 }
