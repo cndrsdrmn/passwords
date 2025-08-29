@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cndrsdrmn\LaravelPasswords;
+namespace Cndrsdrmn\Passwords\Contracts;
 
-use Illuminate\Contracts\Auth\PasswordBroker as PasswordBrokerContract;
 use SensitiveParameter;
 
-interface BrokerInterface extends PasswordBrokerContract
+interface OtpPasswordBroker
 {
     /**
      * Constant representing a token is unverified.

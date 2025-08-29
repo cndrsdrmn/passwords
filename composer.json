@@ -1,10 +1,10 @@
 {
-    "name": "cndrsdrmn/laravel-auth-passwords",
-    "description": "This repository will overrides the core of illuminate/auth/passwords.",
-    "keywords": ["laravel", "auth", "auth-reset-passwords"],
-    "homepage": "https://github.com/cndrsdrmn/laravel-auth-passwords",
+    "name": "cndrsdrmn/passwords",
+    "description": "Override and extend Laravel's password reset to support OTP-style 6-digit tokens with verification state.",
+    "keywords": ["laravel", "auth", "passwords", "otp", "password-reset", "illuminate/auth"],
+    "homepage": "https://github.com/cndrsdrmn/passwords",
     "support": {
-        "issues": "https://github.com/cndrsdrmn/laravel-auth-passwords/issues"
+        "issues": "https://github.com/cndrsdrmn/passwords/issues"
     },
     "license": "MIT",
     "authors": [
@@ -14,8 +14,7 @@
         }
     ],
     "require": {
-        "php": "^8.3",
-        "cndrsdrmn/php-string-formatter": "^0.2.0"
+        "php": "^8.3"
     },
     "require-dev": {
         "larastan/larastan": "^3.2",
@@ -26,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cndrsdrmn\\LaravelPasswords\\": "src/"
+            "Cndrsdrmn\\Passwords\\": "src/"
         }
     },
     "autoload-dev": {
@@ -35,9 +34,12 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
         "laravel": {
             "providers": [
-                "Cndrsdrmn\\LaravelPasswords\\ServiceProvider"
+                "Cndrsdrmn\\Passwords\\PasswordsServiceProvider"
             ]
         }
     },

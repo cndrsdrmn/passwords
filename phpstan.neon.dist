@@ -11,4 +11,4 @@ parameters:
         - src
 
     excludePaths:
-        - src/BrokerManager.php
+        - src/OtpPasswordBrokerManager.php

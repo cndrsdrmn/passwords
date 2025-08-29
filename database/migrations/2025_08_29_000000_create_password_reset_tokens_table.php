@@ -13,15 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('password_resets') && ! Schema::hasColumn('password_resets', 'is_verified')) {
-            Schema::table('password_resets', function (Blueprint $table): void {
-                $table->boolean('is_verified')->default(false)->after('token');
-            });
-
-            return;
-        }
-
-        Schema::create('password_resets', function (Blueprint $table): void {
+        Schema::create($this->table(), function (Blueprint $table): void {
             $table->string('email')->primary();
             $table->string('token');
             $table->boolean('is_verified')->default(false);
@@ -34,6 +26,16 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('password_resets');
+        Schema::dropIfExists($this->table());
+    }
+
+    /**
+     * Get the table name.
+     */
+    private function table(): string
+    {
+        $provider = config()->string('auth.defaults.passwords', 'users');
+
+        return config()->string("auth.passwords.{$provider}.table", 'password_reset_tokens');
     }
 };
