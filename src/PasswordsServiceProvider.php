@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cndrsdrmn\Passwords;
 
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Override;
@@ -27,6 +30,8 @@ final class PasswordsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureLoadMigrations();
+        $this->configureResetPasswordToMail();
+        $this->loadTranslationsFrom(__DIR__.'/../resource/lang', 'passwords');
     }
 
     /**
@@ -59,6 +64,23 @@ final class PasswordsServiceProvider extends ServiceProvider
                 __DIR__.'/../resource/lang' => base_path('lang/vendor/passwords'),
             ], 'passwords-lang');
         }
+    }
+
+    /**
+     * Configure the reset password notification to use the mail channel.
+     */
+    private function configureResetPasswordToMail(): void
+    {
+        ResetPassword::toMailUsing(fn ($notifiable, $token) => (new MailMessage)
+            ->subject(Lang::get('passwords::mail.subject'))
+            ->line(Lang::get('passwords::mail.intro'))
+            ->line(Lang::get('passwords::mail.instruction'))
+            ->line($token)
+            ->line(Lang::get('passwords::mail.expire', [
+                'count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire'),
+            ]))
+            ->line(Lang::get('passwords::mail.outro'))
+        );
     }
 
     /**
