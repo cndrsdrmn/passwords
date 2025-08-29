@@ -1,7 +1,7 @@
 {
     "name": "cndrsdrmn/passwords",
     "description": "Override and extend Laravel's password reset to support OTP-style 6-digit tokens with verification state.",
-    "keywords": ["laravel", "auth", "passwords", "otp", "password-reset", "illuminate/auth"],
+    "keywords": ["laravel", "auth", "passwords", "otp", "password-reset"],
     "homepage": "https://github.com/cndrsdrmn/passwords",
     "support": {
         "issues": "https://github.com/cndrsdrmn/passwords/issues"
