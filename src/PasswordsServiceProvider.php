@@ -72,14 +72,14 @@ final class PasswordsServiceProvider extends ServiceProvider
     private function configureResetPasswordToMail(): void
     {
         ResetPassword::toMailUsing(fn ($notifiable, $token) => (new MailMessage)
-            ->subject(Lang::get('passwords::mail.subject'))
-            ->line(Lang::get('passwords::mail.intro'))
-            ->line(Lang::get('passwords::mail.instruction'))
+            ->subject(Lang::get('passwords::passwords.mail.subject'))
+            ->line(Lang::get('passwords::passwords.mail.intro'))
+            ->line(Lang::get('passwords::passwords.mail.instruction'))
             ->line($token)
-            ->line(Lang::get('passwords::mail.expire', [
+            ->line(Lang::get('passwords::passwords.mail.expire', [
                 'count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire'),
             ]))
-            ->line(Lang::get('passwords::mail.outro'))
+            ->line(Lang::get('passwords::passwords.mail.outro'))
         );
     }
 
