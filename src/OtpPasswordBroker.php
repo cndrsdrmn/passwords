@@ -27,18 +27,14 @@ final class OtpPasswordBroker extends BasePasswordBroker implements OtpPasswordB
      */
     public function markVerified(#[SensitiveParameter] array $credentials): string
     {
-        return $this->timebox->call(function ($timebox) use ($credentials): string {
-            if (is_null($user = $this->getUser($credentials))) {
-                return self::INVALID_USER;
-            }
+        if (is_null($user = $this->getUser($credentials))) {
+            return self::INVALID_USER;
+        }
 
-            if ($this->tokens->markVerified($user, $credentials['token'])) {
-                $timebox->returnEarly();
+        if ($this->tokens->markVerified($user, $credentials['token'])) {
+            return self::VERIFIED_TOKEN;
+        }
 
-                return self::VERIFIED_TOKEN;
-            }
-
-            return self::UNVERIFIED_TOKEN;
-        }, $this->timeboxDuration);
+        return self::UNVERIFIED_TOKEN;
     }
 }

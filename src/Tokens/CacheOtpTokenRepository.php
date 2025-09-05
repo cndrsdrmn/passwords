@@ -17,6 +17,17 @@ final class CacheOtpTokenRepository extends CacheTokenRepository implements OtpT
     use InteractsWithTokenRepository;
 
     /**
+     * Determine the cache key for the given user.
+     *
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @return string
+     */
+    public function cacheKey(CanResetPasswordContract $user): string
+    {
+        return hash('sha256', $user->getEmailForPasswordReset());
+    }
+
+    /**
      * Create a new token with a 6-digit numeric code.
      */
     #[Override]
